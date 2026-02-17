@@ -1,20 +1,17 @@
-import express from "express";
+app.get("/track", async (req, res) => {
+  const code = req.query.code;
 
-const app = express();
-const PORT = process.env.PORT || 3000;
+  if (!code) {
+    return res.status(400).json({
+      ok: false,
+      error: "Missing code",
+      example: "/track?code=XXXX"
+    });
+  }
 
-app.get("/", (req, res) => {
-  res.send("Techllouk Tracking API OK ✅");
-});
-
-app.get("/track", (req, res) => {
-  res.json({
+  return res.json({
     ok: true,
-    message: "Tracking endpoint working",
-    example: "Use /track?code=XXXX"
+    code,
+    message: "Received code successfully"
   });
-});
-
-app.listen(PORT, () => {
-  console.log("Server running on port " + PORT);
 });
