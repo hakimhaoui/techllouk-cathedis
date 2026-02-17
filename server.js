@@ -4,24 +4,20 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.get("/", (req, res) => {
-  res.send("Techllouk Tracking API OK ✅");
+  res.send("Techllouk Cathedis API running ✅");
 });
 
-app.get("/track", async (req, res) => {
+app.get("/track", (req, res) => {
   const code = req.query.code;
 
   if (!code) {
-    return res.status(400).json({
-      ok: false,
-      error: "Missing code",
-      example: "/track?code=XXXX"
-    });
+    return res.status(400).json({ ok: false, error: "code is required" });
   }
 
-  return res.json({
+  res.json({
     ok: true,
     code,
-    message: "Received code successfully"
+    message: "Received code successfully",
   });
 });
 
